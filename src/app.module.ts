@@ -3,11 +3,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { customersModule } from './customers/customers.module';
+import { adminModule } from './admin/admin.module';
+import * as dotenv from 'dotenv';
+dotenv.config({ path: `env/.env.dev` });
 
 @Module({
-  imports: [customersModule, MongooseModule.forRoot(
-    'mongodb+srv://oluwagbenga:REY$VE*m8*biKM2@sandbox.rclek.mongodb.net/nestjs-demo?retryWrites=true&w=majority'
-  )],
+  imports: [adminModule,customersModule, MongooseModule.forRoot( process.env.MONGO_URL  )],
   controllers: [AppController],
   providers: [AppService],
 })
